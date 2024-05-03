@@ -26,7 +26,7 @@ public class Display {
         System.out.println("프로그램을 종료합니다.");
     }
 
-    private static void displayStudentView() {
+    private void displayStudentView() {
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -43,7 +43,7 @@ public class Display {
         }
     }
 
-    private static void displayScoreView() {
+    private void displayScoreView() {
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
