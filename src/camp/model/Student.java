@@ -9,13 +9,14 @@ public class Student {
         this.studentName = studentName;
     }
 
-    // Getter
-    public String getStudentId() {
-        return studentId;
+    // 수강생의 과목별 회차 점수 수정
+    private static void updateRoundScoreBySubject() {
+
     }
 
-    public String getStudentName() {
-        return studentName;
+    // 수강생의 특정 과목 회차별 등급 조회
+    private static void inquireRoundGradeBySubject() {
+
     }
 
 }
