@@ -1,11 +1,10 @@
 package camp.Controller;
 
-import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 public class StudentManager {
     private static StudentManager instance;
@@ -13,6 +12,7 @@ public class StudentManager {
     // 데이터 저장소
     private ArrayList<Student> studentStore;
     private ArrayList<Subject> subjectStore;
+    Scanner sc;
 
     public static StudentManager getInstance() {
         if (instance == null) {
@@ -22,9 +22,10 @@ public class StudentManager {
             return instance;
         }
     }
-    public void InitializeModelList() {
+    public void Initialize() {
         studentStore = new ArrayList<Student>();
         subjectStore = new ArrayList<Subject>();
+        sc = new Scanner(System.in);
     }
 
     // StudentManager가 가지고 있는 학생 리스트 반환
@@ -57,6 +58,12 @@ public class StudentManager {
     }
 
     public void allStudentsListForChangeScore() {
+        System.out.println("\n=========학생의 리스트===========\n\n");
+        int i=1;
+        for (var student : studentStore) {
+            System.out.println(i+". "+student.getName());
+        }
+
 
     }
 
