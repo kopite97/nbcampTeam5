@@ -1,6 +1,6 @@
 package camp;
 
-import camp.Controller.Initializer;
+import camp.Controller.InitializeManager;
 import camp.View.Display;
 
 
@@ -14,10 +14,9 @@ import camp.View.Display;
  */
 public class CampManagementApplication {
 
-    private static Initializer initializer = new Initializer();
-    private static Display display = new Display();
+    private static final Display display = new Display();
     public static void main(String[] args) {
-        initializer.setInitData();
+        InitializeManager.getInstance().setInitData();
         try {
             display.displayMainView();
         } catch (Exception e) {

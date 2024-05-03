@@ -3,9 +3,20 @@ package camp.Controller;
 import camp.model.Subject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Initializer {
+public class InitializeManager {
+    private static InitializeManager instance;
+
+    public static InitializeManager getInstance() {
+        if(instance == null) {
+            instance = new InitializeManager();
+            return instance;
+        }
+        else {
+            return instance;
+        }
+    }
+
     // index 관리 필드
     private int studentIndex;
     private final String INDEX_TYPE_STUDENT = "ST";
@@ -34,11 +45,11 @@ public class Initializer {
         subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "Redis", SUBJECT_TYPE_CHOICE));
         subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "MongoDB", SUBJECT_TYPE_CHOICE));
 
-
+        // 초기 학생 생성
     }
 
     // index 자동 증가
-    private  String sequence(String type) {
+    public  String sequence(String type) {
         switch (type) {
             case INDEX_TYPE_STUDENT -> {
                 studentIndex++;
