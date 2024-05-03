@@ -31,7 +31,7 @@ public class InitializeManager {
 
     // 초기 데이터 생성
     public void setInitData() {
-        StudentManager.getInstance().InitializeModelList();
+        StudentManager.getInstance().Initialize();
 
         // 과목 생성
         ArrayList<Subject> subjectStore = StudentManager.getInstance().getSubjectStore();
