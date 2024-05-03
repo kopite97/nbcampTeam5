@@ -19,11 +19,11 @@ public class InitializeManager {
 
     // index 관리 필드
     private int studentIndex;
-    private final String INDEX_TYPE_STUDENT = "ST";
+    public final String INDEX_TYPE_STUDENT = "ST";
     private int subjectIndex;
-    private final String INDEX_TYPE_SUBJECT = "SU";
+    public final String INDEX_TYPE_SUBJECT = "SU";
     private int scoreIndex;
-    private final String INDEX_TYPE_SCORE = "SC";
+    public final String INDEX_TYPE_SCORE = "SC";
 
     // 과목 타입
     private final String SUBJECT_TYPE_MANDATORY = "MANDATORY";
