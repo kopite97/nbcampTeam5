@@ -52,7 +52,7 @@ public class StudentManager {
 
     }
 
-    // 수강생 목록 조회
+    // 수강생 목록 조회 : 아이디 까지 같이 띄움
     public void inquireStudent() {
         System.out.println("\n==========수강생 목록 ===========\n");
         for(var student : studentStore) {
