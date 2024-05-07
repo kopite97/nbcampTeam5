@@ -19,12 +19,12 @@ public class CampManagementApplication {
     private static final Display display = new Display();
     public static void main(String[] args) {
         InitializeManager.getInstance().setInitData();
-        // MainView Exception
+
         try {
             display.displayMainView();
         } catch (InterruptedException i) {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
-        } catch (InputMismatchException im) {
+        } catch (NumberFormatException n) {
             System.out.println("숫자만 입력가능합니다.\n프로그램을 종료합니다.");
         }
 
