@@ -63,6 +63,7 @@ public class Display {
                     break;
                 case 3:
                     flag = false;
+                    Thread.sleep(1000);
                     break;
                 default:
                     System.out.println("잘못입력하셨습니다. \n1~3번 중 선택해주세요.");
@@ -84,12 +85,22 @@ public class Display {
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
-//            switch (input) {
-//                case 1 -> studentManager.allStudentsListForRegistScore();
-//                case 2 -> studentManager.allStudentsListForChangeScore();
-//                case 3 ->
-//            }
+            switch (input) {
+                case 1 -> studentManager.allStudentsListForRegistScore();
+                case 2 -> studentManager.allStudentsListForChangeScore();
+                case 3 -> studentManager.allStudentsListForInquireRoundGradeBySubject();
+                case 4 -> {
+                        flag = false;
+                        Thread.sleep(1000);
+                }
+                default -> {
+                    System.out.println("잚못입력하셨습니다. \n1~4번 중 선택해주세요.");
+                    Thread.sleep(1000);
+                }
+            }
+                System.out.println("메인화면으로 돌아갑니다.");
         }
     }
+
 
 }

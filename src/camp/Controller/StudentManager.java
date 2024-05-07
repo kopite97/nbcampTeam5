@@ -54,20 +54,12 @@ public class StudentManager {
 
     // 수강생 목록 조회 : 아이디 까지 같이 띄움
     public void inquireStudent() {
-        System.out.println("\n==========수강생 목록 ===========\n");
-        for(var student : studentStore) {
-            System.out.println(student.getName()+" : "+student.getAccount());
-        }
-        System.out.println();
+        printAllStudnts();
     }
 
     // 학생의 점수를 등록하기 위한 리스트 띄우기
     public void allStudentsListForRegistScore(){
-        System.out.println("\n========학생의 리스트=========\n\n");
-
-        for(var student : studentStore) {
-            System.out.println(student.getName()+" : "+student.getAccount());
-        }
+        printAllStudnts();
         String account = sc.nextLine();
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student::updateRoundScoreBySubject); // 임시로 변경할때와 같은 메서드
@@ -75,15 +67,30 @@ public class StudentManager {
 
     // 학생의 점수를 변경하기 위한 리스트 띄우기
     public void allStudentsListForChangeScore() {
+        printAllStudnts();
+
+        String account = sc.nextLine();
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        selectedStudent.ifPresent(Student::updateRoundScoreBySubject);
+    }
+
+    // 수강생의 특정과목 회차별 등급조회를 위한 메서드
+    public void allStudentsListForInquireRoundGradeBySubject(){
+        printAllStudnts();
+
+        String account = sc.nextLine();
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        selectedStudent.ifPresent(Student:: inquireRoundGradeBySubject );
+    }
+
+    private void printAllStudnts()
+    {
         System.out.println("\n=======학생의 리스트=========\n\n");
 
         for (var student : studentStore) {
             System.out.println(student.getName()+" : "+student.getAccount());
         }
 
-        String account = sc.nextLine();
-        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student::updateRoundScoreBySubject);
     }
 
 }
