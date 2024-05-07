@@ -85,4 +85,5 @@ public class StudentManager {
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student::updateRoundScoreBySubject);
     }
+
 }
