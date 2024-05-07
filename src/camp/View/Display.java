@@ -1,8 +1,8 @@
 package camp.View;
 
 import camp.Controller.StudentManager;
-
 import java.util.Scanner;
+
 
 public class Display {
     StudentManager studentManager = new StudentManager();
@@ -41,7 +41,9 @@ public class Display {
         System.out.println("프로그램을 종료합니다.");
     }
 // 수강생 관리
-    private void displayStudentView() {
+
+    private void displayStudentView() throws InterruptedException {
+
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -63,14 +65,14 @@ public class Display {
                     flag = false;
                     break;
                 default:
-                    System.out.println("잘못입력하셨습니다.");
-                    flag = false;
+                    System.out.println("잘못입력하셨습니다. \n1~3번 중 선택해주세요.");
+                    Thread.sleep(1000);
             }
             System.out.println("메인화면으로 돌아갑니다.");
         }
     }
 // 점수 관리 (lamda)
-    private void displayScoreView() {
+    private void displayScoreView() throws InterruptedException {
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
