@@ -1,7 +1,7 @@
 package camp;
 
 import camp.Controller.InitializeManager;
-import camp.View.Display;
+import camp.View.DisplayManager;
 
 import java.util.InputMismatchException;
 
@@ -16,7 +16,7 @@ import java.util.InputMismatchException;
  */
 public class CampManagementApplication {
 
-    private static final Display display = new Display();
+    private static final DisplayManager display = new DisplayManager();
     public static void main(String[] args) {
         InitializeManager.getInstance().setInitData();
 
@@ -24,8 +24,6 @@ public class CampManagementApplication {
             display.displayMainView();
         } catch (InterruptedException i) {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
-        } catch (NumberFormatException n) {
-            System.out.println("숫자만 입력가능합니다.\n프로그램을 종료합니다.");
         }
 
 
