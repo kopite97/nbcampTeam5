@@ -24,14 +24,28 @@ public class DisplayManager {
             sc = new Scanner(System.in);
         }
 
+        String input = sc.nextLine();
+
         if (genericType == String.class) {
-            return genericType.cast(sc.nextLine());
-        } else if (genericType == Integer.class) {
-            return genericType.cast(sc.nextInt());
-        } else if (genericType == Double.class) {
-            return genericType.cast(sc.nextDouble());
-        } else if (genericType == Boolean.class) {
-            return genericType.cast(sc.nextBoolean());
+            return genericType.cast(input);
+        }
+        else if (genericType == Integer.class) {
+            try{
+                return genericType.cast((Integer.parseInt(input)));
+            }
+            catch (NumberFormatException e){
+                System.out.println("잘못된 입력입니다.");
+                return null;
+            }
+        }
+        else if (genericType == Double.class) {
+            try{
+                return genericType.cast(Double.parseDouble(input));
+            }
+            catch (NumberFormatException e){
+                System.out.println("잘못된 입력입니다.");
+                return null;
+            }
         }
         return null;
     }

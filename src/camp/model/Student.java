@@ -56,6 +56,8 @@ public class Student {
 
         String subjectInput = getWantSubject("수정할 과목을 입력해주세요");
         Subject selectSubject = StudentManager.getInstance().getSubjectStore(subjectInput);
+        if(!isExistSubject(subjectInput))
+            return false;
 
         int roundInput = 1;
         if (!isValidToChangeScore(subjectInput)) {
@@ -64,7 +66,15 @@ public class Student {
         }
 
         System.out.println("점수를 입력해주세요");
-        int inputScore = DisplayManager.getInstance().inputScanner(Integer.class);
+        int inputScore = 0;
+
+        try {
+            inputScore = DisplayManager.getInstance().inputScanner(Integer.class);
+        }
+        catch (Exception e) {
+            return false;
+        }
+
 
         if(inputScore < 0 || inputScore > 100) {
             System.out.println("올바르지 않은 점수입니다. (0 ~ 100 범위)");
@@ -88,7 +98,9 @@ public class Student {
     // 수강생의 특정 과목 회차별 등급 조회
     public boolean inquireRoundGradeBySubject() {
         printSelectSubjects();
-        getWantSubject("조회할 과목을 입력해주세요");
+        String subjectInput = getWantSubject("조회할 과목을 입력해주세요");
+        if(!isExistSubject(subjectInput))
+            return false;
         return true;
     }
 
@@ -99,6 +111,9 @@ public class Student {
         //    원하는 과목 입력 받기
         String subjectInput = getWantSubject("등록할 과목을 입력해주세요");
         Subject selectSubject = StudentManager.getInstance().getSubjectStore(subjectInput);
+        if(!isExistSubject(subjectInput))
+            return false;
+
 
         // 회차 계산
         int nextRound = scores.get(subjectInput).size()+1;
@@ -106,7 +121,14 @@ public class Student {
         // 점수 입력 받기
         System.out.println(nextRound+"회차 점수를 입력해주세요: ");
 
-        int score = DisplayManager.getInstance().inputScanner(Integer.class);
+        int score =0;
+        try{
+            score = DisplayManager.getInstance().inputScanner(Integer.class);
+        }
+        catch (Exception e){
+            return false;
+        }
+
         if(score < 0 || score > 100) {
             System.out.println("올바르지 않은 점수입니다. (0 ~ 100 범위)");
             return false;
@@ -154,5 +176,8 @@ public class Student {
 
     private boolean isValidToChangeScore(String subjectName){
         return !scores.get(subjectName).isEmpty();
+    }
+    private boolean isExistSubject(String subjectName){
+        return scores.containsKey(subjectName);
     }
 }
