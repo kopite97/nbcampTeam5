@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Student {
-    private int account;
+    private String account;
     private String name;
     private List<Subject> selectedSubjects;
     private Map<String, List<Score>> scores;
 
-    public Student(int account, String name) {
+    public Student(String account, String name) {
         this.account = account;
         this.name = name;
         this.selectedSubjects = new ArrayList<Subject>();
@@ -25,22 +25,20 @@ public class Student {
         this.name = name;
     }
 
-    public int getAccount() {
+    public String getAccount() {
         return account;
     }
-    public void setAccount(int account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 
-
-
     // 수강생의 과목별 회차 점수 수정
-    private static void updateRoundScoreBySubject() {
+    public void updateRoundScoreBySubject() {
 
     }
 
     // 수강생의 특정 과목 회차별 등급 조회
-    private static void inquireRoundGradeBySubject() {
+    public void inquireRoundGradeBySubject() {
 
     }
 

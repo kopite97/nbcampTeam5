@@ -1,6 +1,7 @@
 package camp.Controller;
 
 import camp.model.Subject;
+import camp.model.SubjectType;
 
 import java.util.ArrayList;
 
@@ -19,11 +20,11 @@ public class InitializeManager {
 
     // index 관리 필드
     private int studentIndex;
-    private final String INDEX_TYPE_STUDENT = "ST";
+    public final String INDEX_TYPE_STUDENT = "ST";
     private int subjectIndex;
-    private final String INDEX_TYPE_SUBJECT = "SU";
+    public final String INDEX_TYPE_SUBJECT = "SU";
     private int scoreIndex;
-    private final String INDEX_TYPE_SCORE = "SC";
+    public final String INDEX_TYPE_SCORE = "SC";
 
     // 과목 타입
     private final String SUBJECT_TYPE_MANDATORY = "MANDATORY";
@@ -31,19 +32,22 @@ public class InitializeManager {
 
     // 초기 데이터 생성
     public void setInitData() {
+        studentIndex = 1;
+        subjectIndex = 1;
+        scoreIndex = 1;
         StudentManager.getInstance().Initialize();
 
         // 과목 생성
         ArrayList<Subject> subjectStore = StudentManager.getInstance().getSubjectStore();
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "Java", SUBJECT_TYPE_MANDATORY));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "객체지향", SUBJECT_TYPE_MANDATORY));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "Spring", SUBJECT_TYPE_MANDATORY));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "JPA", SUBJECT_TYPE_MANDATORY));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "MySQL",SUBJECT_TYPE_MANDATORY));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "디자인 패턴", SUBJECT_TYPE_CHOICE));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "Spring Security",SUBJECT_TYPE_CHOICE));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "Redis", SUBJECT_TYPE_CHOICE));
-        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), "MongoDB", SUBJECT_TYPE_CHOICE));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.JAVA));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.OBJECT_ORIENTED));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.SPRING));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.JPA));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.MYSQL));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.DESIGN_PATTERN));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.SPRING_SECURITY));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.REDIS));
+        subjectStore.add(new Subject(sequence(INDEX_TYPE_SUBJECT), SubjectType.MONGO_DB));
 
         // 초기 학생 생성
     }
