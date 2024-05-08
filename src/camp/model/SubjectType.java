@@ -1,7 +1,5 @@
 package camp.model;
 
-import java.util.ArrayList;
-
 public enum SubjectType {
     JAVA("Java", "MANDATORY"),
     OBJECT_ORIENTED("객체지향", "MANDATORY"),
