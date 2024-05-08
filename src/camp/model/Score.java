@@ -7,32 +7,78 @@ public class Score {
     private int score;
     private ScoreRank scoreRank;
 
-    public Score(String account, int studentAccount, int round, int score, ScoreRank scoreRank) {
+    public Score(String account, int studentAccount, int round, int score,SubjectType subjectType) {
         this.account = account;
         this.studentAccount = studentAccount;
         this.round = round;
         this.score = score;
-        this.scoreRank = scoreRank;
     }
 
     // Getter
-    public String account() {
+    public String getAccount() {
         return account;
     }
 
-    public int studentAccount() {
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public int getStudentAccount() {
         return studentAccount;
     }
 
-    public int round() {
+    public void setStudentAccount(int studentAccount) {
+        this.studentAccount = studentAccount;
+    }
+
+    public int getRound() {
         return round;
     }
 
-    public int score() {
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public int getScore() {
         return score;
     }
 
-    public ScoreRank scoreRank() {
+    public void setScore(int score, SubjectType subjectType) {
+        if (subjectType.getSubjectType().equals("MANDATORY")) {
+            // 필수 과목의 등급 기준에 따라 랭크 계산
+            if (score >= 95) {
+                scoreRank = ScoreRank.A;
+            } else if (score >= 90) {
+                scoreRank = ScoreRank.B;
+            } else if (score >= 80) {
+                scoreRank = ScoreRank.C;
+            } else if (score >= 70) {
+                scoreRank = ScoreRank.D;
+            } else if (score >= 60) {
+                scoreRank = ScoreRank.E;
+            } else {
+                scoreRank = ScoreRank.F;
+            }
+        } else if(subjectType.getSubjectType().equals("CHOICE")){
+            // 선택 과목의 등급 기준에 따라 랭크 계산
+            if (score >= 90) {
+                scoreRank = ScoreRank.A;
+            } else if (score >= 80) {
+                scoreRank = ScoreRank.B;
+            } else if (score >= 70) {
+                scoreRank = ScoreRank.C;
+            } else if (score >= 60) {
+                scoreRank = ScoreRank.D;
+            } else if (score >= 50) {
+                scoreRank = ScoreRank.E;
+            } else {
+                scoreRank = ScoreRank.F;
+            }
+        }
+        this.score = score;
+    }
+
+    public ScoreRank getScoreRank() {
         return scoreRank;
     }
 }

@@ -1,6 +1,8 @@
 package camp.model;
 
 import camp.Controller.InitializeManager;
+import camp.Controller.StudentManager;
+import camp.View.DisplayManager;
 
 import java.util.*;
 
@@ -8,14 +10,13 @@ import java.util.*;
 public class Student {
     private String account;
     private String name;
-    private List<Subject> selectedSubjects;
+
     private Map<String, List<Score>> scores;
-    Scanner sc;
 
     public Student(String account, String name) {
         this.account = account;
         this.name = name;
-        this.selectedSubjects = new ArrayList<Subject>();
+
         this.scores = new HashMap<String, List<Score>>();// 아직 이 맵 안에 List는 인스턴스가 없는 상태
     }
 
@@ -39,11 +40,16 @@ public class Student {
         return false;
     }
 
-    public List<Subject> getSelectSubjects(){
-        return selectedSubjects;
+    public List<String> getSelectSubjects(){
+        return scores.keySet().stream().toList();
     }
-    public void addSelectSubject(Subject wantSubject){
-        selectedSubjects.add(wantSubject);
+
+    public void addSelectSubject(String wantSubject){
+        //selectedSubjects.add(wantSubject);
+        if(scores.containsKey(wantSubject))
+            return;
+
+        scores.put(wantSubject,new ArrayList<>());
     }
 
 
@@ -53,41 +59,42 @@ public class Student {
         // 학생이 선택한 과목 리스트 출력
         System.out.println("\n========== 선택한 과목 목록 ===========\n");
         int index = 1;
-        for(var subject : selectedSubjects) {
-            System.out.println(index + ". " + subject.getSubjectName());
+
+        for(var key : scores.keySet()){
+            System.out.println(index + ". " + key);
             index++;
         }
+
         //    원하는 과목 입력 받기
-        System.out.println("수정할 과목의 번호를 입력해주세요");
-        int subjectInput = sc.nextInt();
-        if(subjectInput < 1 || subjectInput > selectedSubjects.size()) {
+        System.out.println("수정할 과목을 입력해주세요");
+        String subjectInput = DisplayManager.getInstance().inputScanner(String.class);
+
+        if(scores.containsKey(subjectInput)) {
             System.out.println("올바르지 않은 과목 번호입니다.");
             return false;
         }
+        Subject selectSubject = StudentManager.getInstance().getSubjectStore(subjectInput);
 
         // 선택한 과목명
-        Subject subject = selectedSubjects.get(subjectInput - 1);
-        String subjectName = subject.getSubjectName();
-        System.out.println("선택된 과목명: " + subjectName);
+        System.out.println("선택된 과목명: " + subjectInput);
 
         // 선택한 과목의 회차 목록 출력
-        List<Score> scoreList = scores.get(subjectName);
         index = 1;
 
-        for (Score score : scoreList) {
-            System.out.println(index + ". 회차 점수 : "+score.getScore());
+        for(var value : scores.get(subjectInput)) {
+            System.out.println(index + ". 회차 점수 : "+value);
             index++;
         }
         System.out.println("수정할 회차의 번호 입력해주세요");
-        int roundInput = sc.nextInt();
+        int roundInput = DisplayManager.getInstance().inputScanner(Integer.class);
 
-        if(roundInput < 1 || roundInput > scoreList.size()) {
+        if(roundInput < 1 || roundInput > scores.get(subjectInput).size()) {
             System.out.println("올바르지 않은 회차 번호입니다.");
             return false;
         }
 
         System.out.println("수정할 점수를 입력해주세요");
-        int newScore = sc.nextInt();
+        int newScore = DisplayManager.getInstance().inputScanner(Integer.class);
 
         if(newScore < 0 || newScore > 100) {
             System.out.println("올바르지 않은 점수입니다. (0 ~ 100 범위)");
@@ -95,10 +102,9 @@ public class Student {
         }
 
         // 선택한 과목의 해당 회차 점수 수정
-        Score selectedScore = scoreList.get(roundInput - 1);
-        selectedScore.setScore(newScore);
-        selectedScore.setScoreRank(calculateRank(newScore,subject.getSubjectType()));
-
+        Score selectedScore = scores.get(subjectInput).get(roundInput-1);
+        selectedScore.setScore(newScore, selectSubject.getSubjectType());
+        //selectedScore.setScoreRank(calculateRank(newScore,subject.getSubjectType())); <- 얘는 Score에서 하는게 좋아보입니다
 
         System.out.println("점수가 성공적으로 수정되었습니다.");
         return true;
@@ -109,29 +115,28 @@ public class Student {
         // 학생이 선택한 과목 리스트 출력
         System.out.println("\n========== 선택한 과목 목록 ===========\n");
         int index = 1;
-        for(var subject : selectedSubjects) {
-            System.out.println(index + ". " + subject.getSubjectName());
+
+        for(var key : scores.keySet()){
+            System.out.println(index + ". " + key);
             index++;
         }
+
         //    원하는 과목 입력 받기
-        System.out.println("등급을 확인할 과목의 번호를 입력해주세요");
-        int subjectInput = sc.nextInt();
-        if(subjectInput < 1 || subjectInput > selectedSubjects.size()) {
+        System.out.println("수정할 과목을 입력해주세요");
+        String subjectInput = DisplayManager.getInstance().inputScanner(String.class);
+
+        if(scores.containsKey(subjectInput)) {
             System.out.println("올바르지 않은 과목 번호입니다.");
             return false;
         }
 
         // 선택한 과목명
-        Subject subject = selectedSubjects.get(subjectInput - 1);
-        String subjectName = subject.getSubjectName();
-        System.out.println("선택된 과목명: " + subjectName);
+        System.out.println("선택된 과목명: " + subjectInput);
 
         // 선택한 과목의 회차 점수,등급 출력
-        List<Score> scoreList = scores.get(subjectName);
         index = 1;
-
-        for (Score score : scoreList) {
-            System.out.println(index + ". 회차 등급 : "+score.getRank());
+        for(var value : scores.get(subjectInput)) {
+            System.out.println(index + ". 회차 등급 : "+ value);
             index++;
         }
         return true;
@@ -142,33 +147,40 @@ public class Student {
         // 학생이 선택한 과목 리스트 출력
         System.out.println("\n========== 선택한 과목 목록 ===========\n");
         int index = 1;
-        for(var subject : selectedSubjects) {
-            System.out.println(index + ". " + subject.getSubjectName());
+
+        for(var key : scores.keySet()){
+            System.out.println(index + ". " + key);
             index++;
         }
+
         //    원하는 과목 입력 받기
-        System.out.println("점수를 등록할 과목의 번호를 입력해주세요");
-        int subjectInput = sc.nextInt();
-        if(subjectInput < 1 || subjectInput > selectedSubjects.size()) {
+        System.out.println("수정할 과목을 입력해주세요");
+        String subjectInput = DisplayManager.getInstance().inputScanner(String.class);
+
+        if(scores.containsKey(subjectInput)) {
             System.out.println("올바르지 않은 과목 번호입니다.");
             return false;
         }
+        Subject selectSubject = StudentManager.getInstance().getSubjectStore(subjectInput);
 
         // 선택한 과목
-        Subject subject = selectedSubjects.get(subjectInput - 1);
-        String subjectName = subject.getSubjectName();
-        System.out.println("선택된 과목명: " + subjectName);
+        System.out.println("선택된 과목명: " + subjectInput);
 
         // 선택한 과목의 회차 목록 출력
-        List<Score> scoreList = scores.get(subjectName);
+        index =1;
+        for(var value : scores.get(subjectInput)) {
+            System.out.println(index + ". 회차 등급 : "+ value);
+            index++;
+        }
+
 
         // 회차 계산
-        int nextRound = scoreList.size() + 1;
+        int nextRound = scores.get(subjectInput).size();
 
         // 점수 입력 받기
         System.out.println(nextRound+"회차 점수를 입력해주세요: ");
 
-        int score = sc.nextInt();
+        int score = DisplayManager.getInstance().inputScanner(Integer.class);
         if(score < 0 || score > 100) {
             System.out.println("올바르지 않은 점수입니다. (0 ~ 100 범위)");
             return false;
@@ -176,46 +188,10 @@ public class Student {
 
         // 점수 등록
         String scoreAccount = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_SCORE);
-        Score newScore = new Score(scoreAccount, this.account, nextRound, score,calculateRank(score,subject.getSubjectType()));
-        scoreList.add(newScore);
+        Score newScore = new Score(scoreAccount,score,nextRound,score,selectSubject.getSubjectType());
+        scores.get(subjectInput).add(newScore);
 
         System.out.println("점수가 성공적으로 등록되었습니다.");
         return true;
     }
-
-    private ScoreRank calculateRank(int score, String subjectType){
-        if (subjectType.equals(SubjectType.Mandatory)) {
-            // 필수 과목의 등급 기준에 따라 랭크 계산
-            if (score >= 95) {
-                return ScoreRank.A;
-            } else if (score >= 90) {
-                return ScoreRank.B;
-            } else if (score >= 80) {
-                return ScoreRank.C;
-            } else if (score >= 70) {
-                return ScoreRank.D;
-            } else if (score >= 60) {
-                return ScoreRank.F;
-            } else {
-                return ScoreRank.N;
-            }
-        } else {
-            // 선택 과목의 등급 기준에 따라 랭크 계산
-            if (score >= 90) {
-                return ScoreRank.A;
-            } else if (score >= 80) {
-                return ScoreRank.B;
-            } else if (score >= 70) {
-                return ScoreRank.C;
-            } else if (score >= 60) {
-                return ScoreRank.D;
-            } else if (score >= 50) {
-                return ScoreRank.F;
-            } else {
-                return ScoreRank.N;
-            }
-        }
-    }
-
-
 }

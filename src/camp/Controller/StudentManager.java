@@ -33,9 +33,19 @@ public class StudentManager {
     public ArrayList<Student> getStudentStore() {
         return studentStore;
     }
+
     // StudentManager가 가지고 있는 과목 리스트 반환
     public ArrayList<Subject> getSubjectStore() {
         return subjectStore;
+    }
+
+    public Subject getSubjectStore(String wantSubject) {
+        for(var index : subjectStore) {
+            if(index.getSubjectType().getSubjectName().equals(wantSubject)){
+                return index;
+            }
+        }
+        return null;
     }
 
     // 수강생 등록
