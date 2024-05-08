@@ -1,6 +1,29 @@
 package camp.model;
 
 public enum SubjectType {
-    Mandatory,
-    Choice
+    JAVA("Java", "MANDATORY"),
+    OBJECT_ORIENTED("객체지향", "MANDATORY"),
+    SPRING("Spring", "MANDATORY"),
+    JPA("JPA", "MANDATORY"),
+    MYSQL("MySQL", "MANDATORY"),
+    DESIGN_PATTERN("디자인 패턴", "MANDATORY"),
+    SPRING_SECURITY("Spring Security", "MANDATORY"),
+    REDIS("Redis", "MANDATORY"),
+    MONGO_DB("MongoDB", "MANDATORY");
+
+    private final String subjectName;
+    private final String subjectType;
+
+    SubjectType(String subjectName, String subjectType) {
+        this.subjectName = subjectName;
+        this.subjectType = subjectType;
+    }
+
+    String getSubjectName() {
+        return subjectName;
+    }
+
+    String getSubjectType() {
+        return subjectType;
+    }
 }
