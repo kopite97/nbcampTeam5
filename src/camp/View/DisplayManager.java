@@ -75,22 +75,9 @@ public class DisplayManager {
             }
             System.out.println("메인화면으로 돌아갑니다.");
         }
-// 이건 왜 안되는거지?
-//            if ((Integer.parseInt(input) == 1) || input1.trim().equals("수강생 등록")) {
-//                studentManager.createStudent();
-//            } else if ((Integer.parseInt(input) == 2) || input1.trim().equals("수강생 목록 조회")) {
-//                studentManager.inquireStudent();
-//            } else if ((Integer.parseInt(input) == 3) || input1.trim().equals("메인 화면 이동")) {
-//                flag = false;
-//                Thread.sleep(1000);
-//            } else {
-//                System.out.println("잘못입력하셨습니다. \n1~3번 중 숫자를 입력해주세요.");
-//                Thread.sleep(1000);
-//            }
-//            System.out.println("메인화면으로 돌아갑니다.");
     }
 
-// 점수 관리 (lamda)
+// 점수 관리
     private void displayScoreView() throws InterruptedException {
         boolean flag = true;
         while (flag) {
@@ -124,6 +111,4 @@ public class DisplayManager {
                 System.out.println("메인화면으로 돌아갑니다.");
         }
     }
-
-
 }
