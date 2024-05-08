@@ -10,6 +10,7 @@ public class Subject {
 
     public Subject(String seq, SubjectType subjectType) {
         this.subjectId = seq;
+        this.subjectType = subjectType;
     }
 
     // Getter

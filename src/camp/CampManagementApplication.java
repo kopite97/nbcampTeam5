@@ -3,9 +3,6 @@ package camp;
 import camp.Controller.InitializeManager;
 import camp.View.DisplayManager;
 
-import java.util.InputMismatchException;
-
-
 /**
  * Notification
  * Java, 객체지향이 아직 익숙하지 않은 분들은 위한 소스코드 틀입니다.
@@ -25,7 +22,5 @@ public class CampManagementApplication {
         } catch (InterruptedException i) {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
         }
-
-
     }
 }

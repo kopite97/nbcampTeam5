@@ -2,12 +2,12 @@ package camp.model;
 
 public class Score {
     private String account;
-    private int studentAccount;
+    private String studentAccount;
     private int round;
     private int score;
     private ScoreRank scoreRank;
 
-    public Score(String account, int studentAccount, int round, int score,SubjectType subjectType) {
+    public Score(String account, String studentAccount, int round, int score,SubjectType subjectType) {
         this.account = account;
         this.studentAccount = studentAccount;
         this.round = round;
@@ -23,11 +23,11 @@ public class Score {
         this.account = account;
     }
 
-    public int getStudentAccount() {
+    public String getStudentAccount() {
         return studentAccount;
     }
 
-    public void setStudentAccount(int studentAccount) {
+    public void setStudentAccount(String studentAccount) {
         this.studentAccount = studentAccount;
     }
 
