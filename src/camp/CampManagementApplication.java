@@ -1,7 +1,9 @@
 package camp;
 
 import camp.Controller.InitializeManager;
-import camp.View.Display;
+import camp.View.DisplayManager;
+
+import java.util.InputMismatchException;
 
 
 /**
@@ -14,13 +16,16 @@ import camp.View.Display;
  */
 public class CampManagementApplication {
 
-    private static final Display display = new Display();
+    private static final DisplayManager display = new DisplayManager();
     public static void main(String[] args) {
         InitializeManager.getInstance().setInitData();
+
         try {
             display.displayMainView();
-        } catch (Exception e) {
+        } catch (InterruptedException i) {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
         }
+
+
     }
 }
