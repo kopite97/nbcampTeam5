@@ -1,15 +1,17 @@
 package camp.model;
 
+import java.util.ArrayList;
+
 public enum SubjectType {
     JAVA("Java", "MANDATORY"),
     OBJECT_ORIENTED("객체지향", "MANDATORY"),
     SPRING("Spring", "MANDATORY"),
     JPA("JPA", "MANDATORY"),
     MYSQL("MySQL", "MANDATORY"),
-    DESIGN_PATTERN("디자인 패턴", "MANDATORY"),
-    SPRING_SECURITY("Spring Security", "MANDATORY"),
-    REDIS("Redis", "MANDATORY"),
-    MONGO_DB("MongoDB", "MANDATORY");
+    DESIGN_PATTERN("디자인 패턴", "CHOICE"),
+    SPRING_SECURITY("Spring Security", "CHOICE"),
+    REDIS("Redis", "CHOICE"),
+    MONGO_DB("MongoDB", "CHOICE");
 
     private final String subjectName;
     private final String subjectType;
