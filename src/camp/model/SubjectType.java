@@ -19,11 +19,12 @@ public enum SubjectType {
         this.subjectType = subjectType;
     }
 
-    String getSubjectName() {
+    // Getter
+    public String getSubjectName() {
         return subjectName;
     }
 
-    String getSubjectType() {
+    public String getSubjectType() {
         return subjectType;
     }
 }
