@@ -97,15 +97,16 @@ public class StudentManager {
         selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
     }
 
-
     private void printAllStudnts() {
-        if (studentStore == null|| studentStore.isEmpty()) {
+        if (studentStore == null || studentStore.isEmpty()) {
             System.out.println("등록된 수강생이 없습니다. 수강생을 등록해주세요.");
         } else {
             System.out.println("\n=======학생의 리스트=========\n\n");
             for (var student : studentStore) {
                 System.out.println(student.getName() + " : " + student.getAccount());
             }
+        }
+    }
 
     private SubjectType selectSubject() {
         System.out.println("\n원하는 과목을 입력하세요");
@@ -164,15 +165,6 @@ public class StudentManager {
             if(Objects.equals(index.getSubjectType().getSubjectType(), type)){
                 System.out.println(index.getSubjectType().getSubjectName());
             }
-        }
-    }
-
-    private void printAllStudnts()
-    {
-        System.out.println("\n=======학생의 리스트=========\n\n");
-
-        for (var student : studentStore) {
-            System.out.println(student.getName()+" : "+student.getAccount());
         }
     }
 }

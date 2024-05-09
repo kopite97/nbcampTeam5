@@ -1,7 +1,6 @@
 package camp.View;
 
 import camp.Controller.StudentManager;
-import camp.model.Student;
 
 import java.util.Scanner;
 
