@@ -71,6 +71,21 @@ public class StudentManager {
         printAllStudnts();
     }
 
+    // 수강생의 정보 수정
+    public void changeStudentInfo(){
+
+    }
+
+    // 상태별 수강생 목록 조회
+    public void inquireStudentListByState(){
+
+    }
+
+    // 수강생 정보 삭제
+    public void deleteStudent(){
+
+    }
+
     // 학생의 점수를 등록하기 위한 리스트 띄우기
     public void allStudentsListForRegistScore() {
         printAllStudnts();
@@ -126,6 +141,16 @@ public class StudentManager {
 
         System.out.println("\n\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
         selectedStudent.get().addSubject(newSubject);
+    }
+
+    // 과목별 평균 등급 조회
+    public void inquireAvgScoreBySubject(){
+
+    }
+
+    // 상태별 수강생들의 과목 평균등급 조회
+    public void inquireAvgScoreRankBySubjectType(){
+
     }
 
     private void printAllStudnts() {
