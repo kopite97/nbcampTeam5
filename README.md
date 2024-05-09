@@ -66,12 +66,19 @@
 <br>
 
 ## 🤝 역할 분담
+* 노석준 : Initializer, StudentManager
+* 윤다빈 : Student
+* 이세원 : Score
+* 한해정 : DisplayManager
+* 최영주 : Subject
 <br>
 
 ## 🏤 클래스 다이어그램
+// 클래스 다이어그램 이미지 추가 예정
 <br>
 
 ## 🌊 흐름도
+// 흐름도 이미지 추가 예정
 <br>
 
 ## 🏗 프로젝트 구조
