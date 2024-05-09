@@ -74,7 +74,10 @@
 <br>
 
 ## 🏤 클래스 다이어그램
-// 클래스 다이어그램 이미지 추가 예정  
+[클래스 다이어그램 링크 : 피그마](https://www.figma.com/file/iYsDrwylju8S3fKu6xlWGy/Class-Diagram-Template-(Community)?type=whiteboard&node-id=0-1&t=0LcfFJTSL5GY8Xul-0)  
+
+![image](https://github.com/kopite97/nbcampTeam5/assets/78634780/e4ed1ef2-a39a-4fcf-be07-bc7607da9d50)
+![image](https://github.com/kopite97/nbcampTeam5/assets/78634780/29464872-3932-45f3-8f4a-a784bfd9e08b)
 <br>
 
 ## 🌊 흐름도
