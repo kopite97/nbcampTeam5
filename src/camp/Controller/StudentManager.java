@@ -297,6 +297,7 @@ public class StudentManager {
     private void printAllStudnts() {
         if (studentStore == null || studentStore.isEmpty()) {
             System.out.println("===========등록된 수강생이 없습니다. 수강생을 등록해주세요===========\n");
+            return;
         } else {
             System.out.println("\n=======학생의 리스트=========\n\n");
             for (var student : studentStore) {
