@@ -77,7 +77,7 @@ public class StudentManager {
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student::registScore); // 임시로 변경할때와 같은 메서드
-        selectedStudent.ifPresentOrElse(Student::registScore,() -> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
+        selectedStudent.ifPresentOrElse(Student::registScore,() -> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)"));
     }
 
     // 학생의 점수를 변경하기 위한 리스트 띄우기
@@ -86,7 +86,7 @@ public class StudentManager {
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresentOrElse(Student::updateRoundScoreBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
+        selectedStudent.ifPresentOrElse(Student::updateRoundScoreBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)"));
     }
 
     // 수강생의 특정과목 회차별 등급조회를 위한 메서드
@@ -95,10 +95,11 @@ public class StudentManager {
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        //selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
-        selectedStudent.ifPresentOrElse(Student::inquireRoundGradeBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
+
+        selectedStudent.ifPresentOrElse(Student::inquireRoundGradeBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)"));
     }
 
+    // 과목을 추가하기 위한 메서드
     public void addSubject(){
         printAllStudnts();
 
@@ -106,12 +107,13 @@ public class StudentManager {
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         if(selectedStudent.isEmpty())
         {
-            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요");
+            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)");
             return;
         }
 
         printAllSubjects();
 
+        printAllSubjects();
         SubjectType newSubject = selectSubject();
         if(newSubject == null){
             System.out.println("해당 과목이 없습니다.\n\n");
@@ -138,8 +140,20 @@ public class StudentManager {
         }
     }
 
-    private SubjectType selectSubject() {
-        printAllSubjects();
+    private SubjectType selectSubject(){
+
+        System.out.println("\n원하는 과목을 입력하세요");
+
+        String selectSubject = DisplayManager.getInstance().inputScanner(String.class);
+        for(var index : subjectStore) {
+            if(index.getSubjectType().getSubjectName().equals(selectSubject)) {
+                return index.getSubjectType();
+            }
+        }
+        return null;
+    }
+    private SubjectType selectSubject(boolean isMandatory) {
+
         System.out.println("\n원하는 과목을 입력하세요");
 
         String selectSubject = DisplayManager.getInstance().inputScanner(String.class);
@@ -154,7 +168,8 @@ public class StudentManager {
     private void addSubjectWhenCreateNewStudent(Student student) {
         int i =0;
         while(i<3){
-            SubjectType newSubject = selectSubject();
+            printAllSubjects(true);
+            SubjectType newSubject = selectSubject(true);
             if(newSubject == null){
                 System.out.println("해당 과목이 없습니다.\n\n");
                 continue;
@@ -164,22 +179,44 @@ public class StudentManager {
                 continue;
             }
 
-            System.out.println("\n\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
-            student.addSubject(newSubject);
-
             if(newSubject.getSubjectType().equals("CHOICE")){
-                System.out.println("\n해당 과목은 선택과목이므로, 필수 과목도 입력해 주세요.");
+                System.out.println("\n해당 과목은 선택과목이므로, 필수 과목을 입력해 주세요.");
                 continue;
             }
+
+            System.out.println("\n\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
+            student.addSubject(newSubject);
+            i++;
+        }
+
+        i =0;
+        while(i<2){
+            printAllSubjects(false);
+            SubjectType newSubject = selectSubject(false);
+            if(newSubject == null){
+                System.out.println("해당 과목이 없습니다.\n\n");
+                continue;
+            }
+            if(student.getSelectSubjects().contains(newSubject.getSubjectName())){
+                System.out.println("이미 해당 과목을 선택하셨습니다.\n\n");
+                continue;
+            }
+
+            if(newSubject.getSubjectType().equals("MANDATORY")){
+                System.out.println("\n해당 과목은 필수과목이므로, 선택 과목을 입력해 주세요.");
+                continue;
+            }
+
+            System.out.println("\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
+            student.addSubject(newSubject);
             i++;
         }
     }
 
-    private void printAllSubjects() {
+    private void printAllSubjects(){
         System.out.println("\n======과목 리스트======\n\n");
-
         for(var index : subjectStore) {
-            System.out.println(index.getSubjectType().getSubjectName());
+                System.out.println(index.getSubjectType().getSubjectName());
         }
     }
 
