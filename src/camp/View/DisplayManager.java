@@ -93,10 +93,11 @@ public class DisplayManager {
             System.out.println("수강생 관리 실행 중...");
             System.out.println("1. 수강생 등록");
             System.out.println("2. 수강생 목록 조회");
-            System.out.println("3. 수강생 정보 수정");
-            System.out.println("4. 상태별 수강생 목록 조회");
-            System.out.println("5. 수강생 정보 삭제");
-            System.out.println("6. 메인 화면 이동");
+            System.out.println("3. 수강생 정보 조회");
+            System.out.println("4. 수강생 정보 수정");
+            System.out.println("5. 상태별 수강생 목록 조회");
+            System.out.println("6. 수강생 정보 삭제");
+            System.out.println("7. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = 0;
             String input1 = sc.nextLine();
