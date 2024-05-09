@@ -70,6 +70,18 @@ public class Student {
             System.out.println("등록된 회차가 없습니다");
             return false;
         }
+        int inputRound =0;
+        System.out.println("\n수정할 회차를 입력해주세요.");
+        try{
+            inputRound = DisplayManager.getInstance().inputScanner(Integer.class);
+        }
+        catch (Exception e){
+            return false;
+        }
+        if(inputRound<1 || inputRound>scores.get(subjectInput).size()){
+            System.out.println("해당 회차는 등록되지 않았습니다.");
+            return false;
+        }
 
         System.out.println("점수를 입력해주세요");
         int inputScore = 0;
@@ -86,15 +98,7 @@ public class Student {
             return false;
         }
 
-        // 선택한 과목의 해당 회차 점수 수정
-        if(!scores.get(subjectInput).isEmpty()){
-            Score selectedScore = scores.get(subjectInput).get(roundInput-1); // 인덱스가 없을수도 있음
-            selectedScore.setScore(inputScore, selectSubject.getSubjectType());
-        }
-        else{
-            String scoreAccount = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_SCORE);
-            Score newScore = new Score(scoreAccount,account,roundInput-1,inputScore,selectSubject.getSubjectType());
-        }
+        scores.get(subjectInput).get(inputRound-1).setScore(inputScore,selectSubject.getSubjectType());
 
         System.out.println("점수가 성공적으로 수정되었습니다.");
         return true;
@@ -123,7 +127,6 @@ public class Student {
         Subject selectSubject = StudentManager.getInstance().getSubjectStore(subjectInput);
         if(!isExistSubject(subjectInput))
             return false;
-
 
         // 회차 계산
         int nextRound = scores.get(subjectInput).size()+1;
