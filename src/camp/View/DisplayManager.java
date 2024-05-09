@@ -153,7 +153,7 @@ public class DisplayManager {
                     Thread.sleep(1000);
                 }
                 default -> {
-                    System.out.println("잘못입력하셨습니다. \n1~4번 중 선택해주세요.");
+                    System.out.println("잘못입력하셨습니다. \n1~5번 중 선택해주세요.");
                     Thread.sleep(1000);
                 }
             }
