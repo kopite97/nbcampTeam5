@@ -108,6 +108,10 @@ public class StudentManager {
         }
     }
 
+    public void addSubject(){
+
+    }
+
     private SubjectType selectSubject() {
         System.out.println("\n원하는 과목을 입력하세요");
         printAllSubjects();
