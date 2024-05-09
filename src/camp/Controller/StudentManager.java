@@ -61,9 +61,7 @@ public class StudentManager {
         String account = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_STUDENT);
         Student student = new Student(account, name);
 
-        printAllSubjects(true);
         addSubjectWhenCreateNewStudent(student);
-
         studentStore.add(student);
         System.out.println("\n추가 완료 : " + name);
     }
@@ -71,6 +69,28 @@ public class StudentManager {
     // 수강생 목록 조회 : 아이디 까지 같이 띄움
     public void inquireStudent() {
         printAllStudnts();
+    }
+
+    // 수강생 정보 조회
+    public void inquireStudentInfo(){
+        printAllStudnts();
+
+        System.out.println("\n조회 학생의 고유번호를 입력하세요.");
+
+        String account = DisplayManager.getInstance().inputScanner(String.class);
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        if (selectedStudent.isEmpty()) {
+            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)");
+            return;
+        }
+
+        System.out.println("\n고유번호 : "+account);
+        System.out.println("이름 : "+selectedStudent.get().getName());
+        System.out.println("상태 : "+selectedStudent.get()); // getstate
+        System.out.println("선택한 과목");
+        for (var index : selectedStudent.get().getSelectSubjects()) {
+            System.out.println(index);
+        }
     }
 
     // 수강생의 정보 수정
@@ -85,14 +105,27 @@ public class StudentManager {
             System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)");
             return;
         }
-        System.out.println("\n고유번호 : "+account);
-        System.out.println("이름 : "+selectedStudent.get().getName());
-        System.out.println("상태 : "+selectedStudent.get()); // getstate
-        System.out.println("선택한 과목");
-        for (var index : selectedStudent.get().getSelectSubjects()) {
-            System.out.println(index);
+        System.out.println("\n수정할 정보");
+        System.out.println("1. 이름\n2. 상태");
+        int input = DisplayManager.getInstance().inputScanner(Integer.class);
+        if (input == 1) {
+            System.out.println("\n새로운 이름을 입력해주세요 ");
+            String newName = DisplayManager.getInstance().inputScanner(String.class);
+            selectedStudent.get().setName(newName);
+            System.out.println("이름이 변경되었습니다 . : "+newName);
         }
-
+        else if (input == 2) {
+            System.out.println("\n새로운 상태를 입력해주세요 ");
+            System.out.println("<<Green , Red, Yellow>>");
+            String newState = DisplayManager.getInstance().inputScanner(String.class);
+            if(!Arrays.stream(State.values()).map(Enum::name).toList().contains(newState)){
+                System.out.println("잘못된 입력입니다. 정확한 상태를 입력해주세요");
+                return;
+            }
+            State state = State.valueOf(newState);
+            selectedStudent.get().setState(state);
+            System.out.println("상태가 수정되었습니다. : "+state.name());
+        }
     }
 
     // 상태별 수강생 목록 조회
