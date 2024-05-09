@@ -112,9 +112,8 @@ public class StudentManager {
         }
 
         printAllSubjects();
-
-        printAllSubjects();
         SubjectType newSubject = selectSubject();
+
         if(newSubject == null){
             System.out.println("해당 과목이 없습니다.\n\n");
             return;
