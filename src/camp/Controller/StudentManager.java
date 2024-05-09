@@ -77,6 +77,7 @@ public class StudentManager {
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student::registScore); // 임시로 변경할때와 같은 메서드
+        selectedStudent.ifPresentOrElse(Student::registScore,() -> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
     }
 
     // 학생의 점수를 변경하기 위한 리스트 띄우기
@@ -85,7 +86,7 @@ public class StudentManager {
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student::updateRoundScoreBySubject);
+        selectedStudent.ifPresentOrElse(Student::updateRoundScoreBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
     }
 
     // 수강생의 특정과목 회차별 등급조회를 위한 메서드
@@ -94,7 +95,36 @@ public class StudentManager {
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
+        //selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
+        selectedStudent.ifPresentOrElse(Student::inquireRoundGradeBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요"));
+    }
+
+    public void addSubject(){
+        printAllStudnts();
+
+        String account = DisplayManager.getInstance().inputScanner(String.class);
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        if(selectedStudent.isEmpty())
+        {
+            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요");
+            return;
+        }
+
+        printAllSubjects();
+
+        SubjectType newSubject = selectSubject();
+        if(newSubject == null){
+            System.out.println("해당 과목이 없습니다.\n\n");
+            return;
+        }
+
+        if(selectedStudent.get().getSelectSubjects().contains(newSubject.getSubjectName())){
+            System.out.println("이미 해당 과목을 선택하셨습니다.\n\n");
+            return;
+        }
+
+        System.out.println("\n\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
+        selectedStudent.get().addSubject(newSubject);
     }
 
     private void printAllStudnts() {
@@ -108,13 +138,9 @@ public class StudentManager {
         }
     }
 
-    public void addSubject(){
-
-    }
-
     private SubjectType selectSubject() {
-        System.out.println("\n원하는 과목을 입력하세요");
         printAllSubjects();
+        System.out.println("\n원하는 과목을 입력하세요");
 
         String selectSubject = DisplayManager.getInstance().inputScanner(String.class);
         for(var index : subjectStore) {
