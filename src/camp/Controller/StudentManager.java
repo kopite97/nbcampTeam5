@@ -1,11 +1,13 @@
 package camp.Controller;
 
+import camp.Model.State;
 import camp.View.DisplayManager;
 import camp.Model.Student;
 import camp.Model.Subject;
 import camp.Model.SubjectType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -73,17 +75,58 @@ public class StudentManager {
 
     // 수강생의 정보 수정
     public void changeStudentInfo(){
+        printAllStudnts();
+
+        System.out.println("\n수정하려는 학생의 고유번호를 입력하세요.");
+
+        String account = DisplayManager.getInstance().inputScanner(String.class);
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        if (selectedStudent.isEmpty()) {
+            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)");
+            return;
+        }
+        System.out.println("\n고유번호 : "+account);
+        System.out.println("이름 : "+selectedStudent.get().getName());
+        System.out.println("상태 : "+selectedStudent.get()); // getstate
+        System.out.println("선택한 과목");
+        for (var index : selectedStudent.get().getSelectSubjects()) {
+            System.out.println(index);
+        }
 
     }
 
     // 상태별 수강생 목록 조회
     public void inquireStudentListByState(){
+        System.out.println("조회할 상태를 선택하세요");
+        System.out.println("Green\nRed\nYellow");
 
+        String selectState = DisplayManager.getInstance().inputScanner(String.class);
+        if(!Arrays.stream(State.values()).map(Enum::name).toList().contains(selectState)){
+            System.out.println("잘못된 입력입니다. 정확한 상태를 입력해주세요");
+            return;
+        }
+        State selectedState = State.valueOf(selectState);
+        System.out.println("상태 : "+selectedState);
+
+        for(var student : studentStore){
+            if(student.getState() == selectedState){
+                System.out.println("이름 : "+student.getName()+" 상태 : "+student.getState().name());
+            }
+        }
     }
 
     // 수강생 정보 삭제
     public void deleteStudent(){
+        printAllStudnts();
+        System.out.println("정보를 삭제할 수강생을 입력해주세요");
 
+        String account = DisplayManager.getInstance().inputScanner(String.class);
+        Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
+        if (selectedStudent.isEmpty()) {
+            System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)");
+            return;
+        }
+        studentStore.remove(selectedStudent.get());
     }
 
     // 학생의 점수를 등록하기 위한 리스트 띄우기
@@ -91,7 +134,6 @@ public class StudentManager {
         printAllStudnts();
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student::registScore); // 임시로 변경할때와 같은 메서드
         selectedStudent.ifPresentOrElse(Student::registScore,() -> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)"));
     }
 
@@ -110,7 +152,6 @@ public class StudentManager {
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-
         selectedStudent.ifPresentOrElse(Student::inquireRoundGradeBySubject,()-> System.out.println("해당 학생이 없습니다.(고유번호를 입력해주세요)"));
     }
 
