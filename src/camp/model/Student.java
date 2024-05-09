@@ -75,7 +75,6 @@ public class Student {
             return false;
         }
 
-
         if(inputScore < 0 || inputScore > 100) {
             System.out.println("올바르지 않은 점수입니다. (0 ~ 100 범위)");
             return false;
@@ -135,7 +134,7 @@ public class Student {
         }
 
         // 점수 등록
-        String scoreAccount = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_SCORE);
+        String scoreAccount = selectSubject.getSubjectId();
         Score newScore = new Score(scoreAccount,account,nextRound,score,selectSubject.getSubjectType());
         scores.get(subjectInput).add(newScore);
 
@@ -162,16 +161,17 @@ public class Student {
             System.out.println("올바르지 않은 과목 번호입니다.");
             return "";
         }
-        // 선택한 과목
-        System.out.println("선택된 과목명: " + subjectInput);
+        printScoreByRound(subjectInput);
+        return subjectInput;
+    }
 
+    private void printScoreByRound(String wantSubject){
+        // 선택한 과목
         int index =1;
-        for(var value : scores.get(subjectInput)) {
-            System.out.println(index + ". 회차 등급 : "+ value.getScore());
+        for(var value : scores.get(wantSubject)) {
+            System.out.println(index + "회차 점수 : "+ value.getScore() +" 등급 : "+value.getScoreRank());
             index++;
         }
-
-        return subjectInput;
     }
 
     private boolean isValidToChangeScore(String subjectName){

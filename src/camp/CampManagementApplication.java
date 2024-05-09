@@ -21,6 +21,9 @@ public class CampManagementApplication {
             display.displayMainView();
         } catch (InterruptedException i) {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
+            String s = "sadfas";
+            char fa = s.charAt(0);
+
         }
     }
 }

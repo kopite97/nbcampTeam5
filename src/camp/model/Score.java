@@ -12,31 +12,19 @@ public class Score {
         this.studentAccount = studentAccount;
         this.round = round;
         this.score = score;
+        setScore(score,subjectType);
     }
 
-    // Getter
     public String getAccount() {
         return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
     }
 
     public String getStudentAccount() {
         return studentAccount;
     }
 
-    public void setStudentAccount(String studentAccount) {
-        this.studentAccount = studentAccount;
-    }
-
     public int getRound() {
         return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
     }
 
     public int getScore() {
