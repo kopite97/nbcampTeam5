@@ -275,7 +275,7 @@ public class StudentManager {
                 map(x -> x.getSubjectType().getSubjectName()).toList();
 
 
-        // 논리적으로 무조건 있기 때문에 null체크 없이 바로 get()
+        // 무조건 있기 때문에 null체크 없이 바로 get()
         Subject basicType = subjectStore.stream().filter(x-> Objects.equals(x.getSubjectType().getSubjectName(), wantTypeSubjects.get(0))).findFirst().get();
 
         for(var student : studentStore){
@@ -378,6 +378,7 @@ public class StudentManager {
             i++;
         }
     }
+
 
     private void printAllSubjects(){
         System.out.println("\n======과목 리스트======\n\n");
