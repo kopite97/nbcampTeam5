@@ -81,7 +81,7 @@ public class StudentManager {
 
         System.out.println("\n고유번호 : "+account);
         System.out.println("이름 : "+selectedStudent.get().getName());
-        System.out.println("상태 : "+selectedStudent.get()); // getstate
+        System.out.println("상태 : "+selectedStudent.get().getState()); // getstate
         System.out.println("선택한 과목");
         for (var index : selectedStudent.get().getSelectSubjects()) {
             System.out.println(index);
