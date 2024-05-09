@@ -93,7 +93,10 @@ public class DisplayManager {
             System.out.println("수강생 관리 실행 중...");
             System.out.println("1. 수강생 등록");
             System.out.println("2. 수강생 목록 조회");
-            System.out.println("3. 메인 화면 이동");
+            System.out.println("3. 수강생 정보 수정");
+            System.out.println("4. 상태별 수강생 목록 조회");
+            System.out.println("5. 수강생 정보 삭제");
+            System.out.println("6. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = 0;
             String input1 = sc.nextLine();
@@ -106,9 +109,12 @@ public class DisplayManager {
             }
 
             switch (input) {
-                case 1 -> StudentManager.getInstance().createStudent();
-                case 2 -> StudentManager.getInstance().inquireStudent();
-                case 3 -> {
+                case 1 -> StudentManager.getInstance().createStudent(); // 수강생 등록
+                case 2 -> StudentManager.getInstance().inquireStudent(); // 수강생 목록조희
+                case 3 -> StudentManager.getInstance().changeStudentInfo(); // 수강생 정보 수정
+                case 4 -> StudentManager.getInstance().inquireStudentListByState(); // 상태별 수강생 목록 조회
+                case 5 -> StudentManager.getInstance().deleteStudent(); // 수강생 정보 삭제
+                case 6 -> {
                     flag = false;
                     Thread.sleep(1000);
                 }
@@ -131,7 +137,9 @@ public class DisplayManager {
             System.out.println("2. 수강생의 과목별 회차 점수 수정");
             System.out.println("3. 수강생의 특정 과목 회차별 등급 조회");
             System.out.println("4. 새로운 과목 추가 등록");
-            System.out.println("5. 메인 화면 이동");
+            System.out.println("5. 과목별 평균 등급 조회");
+            System.out.println("6. 상태별 수강생들의 필수과목 평균 등급 조회");
+            System.out.println("7. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = 0;
             String input1 = sc.nextLine();
@@ -144,11 +152,13 @@ public class DisplayManager {
             }
 
             switch (input) {
-                case 1 -> StudentManager.getInstance().allStudentsListForRegistScore();
-                case 2 -> StudentManager.getInstance().allStudentsListForChangeScore();
-                case 3 -> StudentManager.getInstance().allStudentsListForInquireRoundGradeBySubject();
-                case 4 -> StudentManager.getInstance().addSubject();
-                case 5 -> {
+                case 1 -> StudentManager.getInstance().allStudentsListForRegistScore(); // 수강생의 과목별 시험 회차 및 점수 등록
+                case 2 -> StudentManager.getInstance().allStudentsListForChangeScore(); // 수강생의 과목별 회차 점수 수정
+                case 3 -> StudentManager.getInstance().allStudentsListForInquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
+                case 4 -> StudentManager.getInstance().addSubject(); // 새로운 과목 추가
+                case 5 -> StudentManager.getInstance().inquireAvgScoreBySubject(); // 과목별 평균 등급 조회
+                case 6 -> StudentManager.getInstance().inquireAvgScoreRankBySubjectType(); // 상태별 수강생들의 필수과목 평균 등급 조회
+                case 7 -> {
                     flag = false;
                     Thread.sleep(1000);
                 }
