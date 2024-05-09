@@ -23,6 +23,7 @@ public class StudentManager {
             return instance;
         }
     }
+
     public void Initialize() {
         studentStore = new ArrayList<Student>();
         subjectStore = new ArrayList<Subject>();
@@ -39,8 +40,8 @@ public class StudentManager {
     }
 
     public Subject getSubjectStore(String wantSubject) {
-        for(var index : subjectStore) {
-            if(index.getSubjectType().getSubjectName().equals(wantSubject)){
+        for (var index : subjectStore) {
+            if (index.getSubjectType().getSubjectName().equals(wantSubject)) {
                 return index;
             }
         }
@@ -54,13 +55,13 @@ public class StudentManager {
         System.out.print("이름 : ");
         String name = DisplayManager.getInstance().inputScanner(String.class);
 
-        String account =InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_STUDENT);
-        Student student = new Student(account,name);
+        String account = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_STUDENT);
+        Student student = new Student(account, name);
 
         student.addSubject(SubjectType.JAVA);
         student.addSubject(SubjectType.JPA);
         studentStore.add(student);
-        System.out.println("\n추가 완료 : "+name);
+        System.out.println("\n추가 완료 : " + name);
     }
 
     // 수강생 목록 조회 : 아이디 까지 같이 띄움
@@ -69,7 +70,7 @@ public class StudentManager {
     }
 
     // 학생의 점수를 등록하기 위한 리스트 띄우기
-    public void allStudentsListForRegistScore(){
+    public void allStudentsListForRegistScore() {
         printAllStudnts();
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
@@ -86,20 +87,22 @@ public class StudentManager {
     }
 
     // 수강생의 특정과목 회차별 등급조회를 위한 메서드
-    public void allStudentsListForInquireRoundGradeBySubject(){
+    public void allStudentsListForInquireRoundGradeBySubject() {
         printAllStudnts();
 
         String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student:: inquireRoundGradeBySubject );
+        selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
     }
 
-    private void printAllStudnts()
-    {
-        System.out.println("\n=======학생의 리스트=========\n\n");
-
-        for (var student : studentStore) {
-            System.out.println(student.getName()+" : "+student.getAccount());
+    private void printAllStudnts() {
+        if (studentStore == null|| studentStore.isEmpty()) {
+            System.out.println("등록된 수강생이 없습니다. 수강생을 등록해주세요.");
+        } else {
+            System.out.println("\n=======학생의 리스트=========\n\n");
+            for (var student : studentStore) {
+                System.out.println(student.getName() + " : " + student.getAccount());
+            }
         }
     }
 }
