@@ -72,18 +72,9 @@ public class DisplayManager {
             }
 
             switch (input) {
-                case 1 -> {
-                    displayStudentView();
-                    break;
-                }
-                case 2 -> {
-                    displayScoreView();
-                    break;
-                }
-                case 3 -> {
-                    flag = false;
-                    break;
-                }
+                case 1 -> displayStudentView();
+                case 2 -> displayScoreView();
+                case 3 -> flag = false;
                 default -> {
                     System.out.println("잘못 입력하셨습니다. \n 1~3번 중 입력해주세요.");
                     Thread.sleep(1000);
@@ -115,20 +106,15 @@ public class DisplayManager {
             }
 
             switch (input) {
-                case 1: {
-                    StudentManager.getInstance().createStudent();
-                }
-                break;
-                case 2: {
+                case 1 -> StudentManager.getInstance().createStudent();
+                case 2 -> {
                     StudentManager.getInstance().inquireStudent();
                 }
-                break;
-                case 3: {
+                case 3 -> {
                     flag = false;
                     Thread.sleep(1000);
                 }
-                break;
-                default: {
+                default -> {
                     System.out.println("잘못입력하셨습니다. \n1~3번 중 숫자를 입력해주세요.");
                     Thread.sleep(1000);
                 }

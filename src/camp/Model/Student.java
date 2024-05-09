@@ -37,8 +37,8 @@ public class Student {
         return false;
     }
 
-    public List<String> getSelectSubjects(){
-        return scores.keySet().stream().toList();
+    public Set<String> getSelectSubjects(){
+        return scores.keySet();
     }
 
     public void addSubject(SubjectType wantSubject){
