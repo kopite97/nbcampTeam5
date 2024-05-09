@@ -14,6 +14,8 @@ public enum SubjectType {
     private final String subjectName;
     private final String subjectType;
 
+    public static final String[] subjectTypeArr = {"MANDATORY","CHOICE"};
+
     SubjectType(String subjectName, String subjectType) {
         this.subjectName = subjectName;
         this.subjectType = subjectType;

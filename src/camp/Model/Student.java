@@ -8,6 +8,7 @@ import java.util.*;
 public class Student {
     private String account;
     private String name;
+    private State state;
 
     private Map<String, List<Score>> scores;
 
@@ -15,18 +16,23 @@ public class Student {
         this.account = account;
         this.name = name;
         this.scores = new HashMap<String, List<Score>>();// 아직 이 맵 안에 List는 인스턴스가 없는 상태
+        state = State.Green;
     }
 
     public String getAccount() {
         return account;
     }
-    public void setAccount(String wantAccount) {
-        this.account = wantAccount;
-
-    }
 
     public String getName(){
         return name;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public boolean setName(String name){
@@ -101,6 +107,11 @@ public class Student {
         if(!isExistSubject(subjectInput))
             return false;
         return true;
+    }
+
+    // 점수 조회
+    public List<Score> getScoreList(String wantSubject) {
+        return scores.get(wantSubject);
     }
 
     // 점수 등록

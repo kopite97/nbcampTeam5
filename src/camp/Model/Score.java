@@ -31,38 +31,44 @@ public class Score {
         return score;
     }
 
-    public void setScore(int score, SubjectType subjectType) {
+    public static ScoreRank calculateScoreRank(int score, SubjectType subjectType){
+        ScoreRank rank = null;
         if (subjectType.getSubjectType().equals("MANDATORY")) {
             // 필수 과목의 등급 기준에 따라 랭크 계산
             if (score >= 95) {
-                scoreRank = ScoreRank.A;
+                rank = ScoreRank.A;
             } else if (score >= 90) {
-                scoreRank = ScoreRank.B;
+                rank = ScoreRank.B;
             } else if (score >= 80) {
-                scoreRank = ScoreRank.C;
+                rank = ScoreRank.C;
             } else if (score >= 70) {
-                scoreRank = ScoreRank.D;
+                rank = ScoreRank.D;
             } else if (score >= 60) {
-                scoreRank = ScoreRank.E;
+                rank = ScoreRank.E;
             } else {
-                scoreRank = ScoreRank.F;
+                rank = ScoreRank.F;
             }
         } else if(subjectType.getSubjectType().equals("CHOICE")){
             // 선택 과목의 등급 기준에 따라 랭크 계산
             if (score >= 90) {
-                scoreRank = ScoreRank.A;
+                rank = ScoreRank.A;
             } else if (score >= 80) {
-                scoreRank = ScoreRank.B;
+                rank = ScoreRank.B;
             } else if (score >= 70) {
-                scoreRank = ScoreRank.C;
+                rank = ScoreRank.C;
             } else if (score >= 60) {
-                scoreRank = ScoreRank.D;
+                rank = ScoreRank.D;
             } else if (score >= 50) {
-                scoreRank = ScoreRank.E;
+                rank = ScoreRank.E;
             } else {
-                scoreRank = ScoreRank.F;
+                rank = ScoreRank.F;
             }
         }
+        return rank;
+    }
+
+    public void setScore(int score, SubjectType subjectType) {
+        this.scoreRank = calculateScoreRank(score,subjectType);
         this.score = score;
     }
 

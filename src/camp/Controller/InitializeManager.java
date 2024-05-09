@@ -26,9 +26,6 @@ public class InitializeManager {
     private int scoreIndex;
     public final String INDEX_TYPE_SCORE = "SC";
 
-    // 과목 타입
-    private final String SUBJECT_TYPE_MANDATORY = "MANDATORY";
-    private final String SUBJECT_TYPE_CHOICE = "CHOICE";
 
     // 초기 데이터 생성
     public void setInitData() {
