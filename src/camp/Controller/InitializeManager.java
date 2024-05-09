@@ -32,9 +32,9 @@ public class InitializeManager {
 
     // 초기 데이터 생성
     public void setInitData() {
-        studentIndex = 1;
-        subjectIndex = 1;
-        scoreIndex = 1;
+        studentIndex = 0;
+        subjectIndex = 0;
+        scoreIndex = 0;
         StudentManager.getInstance().Initialize();
 
         // 과목 생성
