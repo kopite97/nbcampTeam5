@@ -1,11 +1,12 @@
 package camp.Controller;
 
+import camp.View.DisplayManager;
 import camp.model.Student;
 import camp.model.Subject;
+import camp.model.SubjectType;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class StudentManager {
     private static StudentManager instance;
@@ -13,7 +14,6 @@ public class StudentManager {
     // 데이터 저장소
     private ArrayList<Student> studentStore;
     private ArrayList<Subject> subjectStore;
-    Scanner sc;
 
     public static StudentManager getInstance() {
         if (instance == null) {
@@ -26,16 +26,25 @@ public class StudentManager {
     public void Initialize() {
         studentStore = new ArrayList<Student>();
         subjectStore = new ArrayList<Subject>();
-        sc = new Scanner(System.in);
     }
 
     // StudentManager가 가지고 있는 학생 리스트 반환
     public ArrayList<Student> getStudentStore() {
         return studentStore;
     }
+
     // StudentManager가 가지고 있는 과목 리스트 반환
     public ArrayList<Subject> getSubjectStore() {
         return subjectStore;
+    }
+
+    public Subject getSubjectStore(String wantSubject) {
+        for(var index : subjectStore) {
+            if(index.getSubjectType().getSubjectName().equals(wantSubject)){
+                return index;
+            }
+        }
+        return null;
     }
 
     // 수강생 등록
@@ -43,13 +52,15 @@ public class StudentManager {
         System.out.println("\n======새로운 수강생 등록=======");
 
         System.out.print("이름 : ");
-        String name = sc.nextLine();
+        String name = DisplayManager.getInstance().inputScanner(String.class);
 
         String account =InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_STUDENT);
         Student student = new Student(account,name);
 
+        student.addSubject(SubjectType.JAVA);
+        student.addSubject(SubjectType.JPA);
+        studentStore.add(student);
         System.out.println("\n추가 완료 : "+name);
-
     }
 
     // 수강생 목록 조회 : 아이디 까지 같이 띄움
@@ -60,16 +71,16 @@ public class StudentManager {
     // 학생의 점수를 등록하기 위한 리스트 띄우기
     public void allStudentsListForRegistScore(){
         printAllStudnts();
-        String account = sc.nextLine();
+        String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
-        selectedStudent.ifPresent(Student::updateRoundScoreBySubject); // 임시로 변경할때와 같은 메서드
+        selectedStudent.ifPresent(Student::registScore); // 임시로 변경할때와 같은 메서드
     }
 
     // 학생의 점수를 변경하기 위한 리스트 띄우기
     public void allStudentsListForChangeScore() {
         printAllStudnts();
 
-        String account = sc.nextLine();
+        String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student::updateRoundScoreBySubject);
     }
@@ -78,7 +89,7 @@ public class StudentManager {
     public void allStudentsListForInquireRoundGradeBySubject(){
         printAllStudnts();
 
-        String account = sc.nextLine();
+        String account = DisplayManager.getInstance().inputScanner(String.class);
         Optional<Student> selectedStudent = studentStore.stream().filter(student -> student.getAccount().equals(account)).findFirst();
         selectedStudent.ifPresent(Student:: inquireRoundGradeBySubject );
     }
@@ -90,7 +101,5 @@ public class StudentManager {
         for (var student : studentStore) {
             System.out.println(student.getName()+" : "+student.getAccount());
         }
-
     }
-
 }
