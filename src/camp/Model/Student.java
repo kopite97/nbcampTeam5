@@ -1,4 +1,4 @@
-package camp.model;
+package camp.Model;
 
 import camp.Controller.InitializeManager;
 import camp.Controller.StudentManager;
@@ -145,10 +145,8 @@ public class Student {
     private void printSelectSubjects(){
         // 학생이 선택한 과목 리스트 출력
         System.out.println("\n========== 선택한 과목 목록 ===========\n");
-        int index = 1;
         for(var key : scores.keySet()){
-            System.out.println(index + ". " + key);
-            index++;
+            System.out.println(key);
         }
     }
 
@@ -168,6 +166,11 @@ public class Student {
     private void printScoreByRound(String wantSubject){
         // 선택한 과목
         int index =1;
+        if (scores.get(wantSubject).isEmpty()) {
+            System.out.println("등록된 점수가 없습니다");
+            return;
+        }
+        
         for(var value : scores.get(wantSubject)) {
             System.out.println(index + "회차 점수 : "+ value.getScore() +" 등급 : "+value.getScoreRank());
             index++;

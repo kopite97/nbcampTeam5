@@ -1,4 +1,4 @@
-package camp.model;
+package camp.Model;
 
 public class Score {
     private String account;
