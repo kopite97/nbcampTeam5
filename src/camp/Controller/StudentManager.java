@@ -134,7 +134,7 @@ public class StudentManager {
             return;
         }
         State selectedState = State.valueOf(selectState);
-        System.out.println("상태 : "+selectedState);
+        System.out.println("상태 : "+selectState);
 
         for(var student : studentStore){
             if(student.getState() == selectedState){
