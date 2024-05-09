@@ -1,4 +1,4 @@
-package camp.model;
+package camp.Model;
 
 public enum SubjectType {
     JAVA("Java", "MANDATORY"),
@@ -13,6 +13,8 @@ public enum SubjectType {
 
     private final String subjectName;
     private final String subjectType;
+
+    public static final String[] subjectTypeArr = {"MANDATORY","CHOICE"};
 
     SubjectType(String subjectName, String subjectType) {
         this.subjectName = subjectName;
