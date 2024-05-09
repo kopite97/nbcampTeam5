@@ -1,7 +1,7 @@
 package camp.Controller;
 
-import camp.model.Subject;
-import camp.model.SubjectType;
+import camp.Model.Subject;
+import camp.Model.SubjectType;
 
 import java.util.ArrayList;
 

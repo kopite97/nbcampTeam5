@@ -1,9 +1,9 @@
 package camp.Controller;
 
 import camp.View.DisplayManager;
-import camp.model.Student;
-import camp.model.Subject;
-import camp.model.SubjectType;
+import camp.Model.Student;
+import camp.Model.Subject;
+import camp.Model.SubjectType;
 
 import java.util.ArrayList;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package camp.model;
+package camp.Model;
 
 import camp.Controller.InitializeManager;
 import camp.Controller.StudentManager;

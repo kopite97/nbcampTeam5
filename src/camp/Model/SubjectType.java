@@ -1,4 +1,4 @@
-package camp.model;
+package camp.Model;
 
 public enum SubjectType {
     JAVA("Java", "MANDATORY"),
