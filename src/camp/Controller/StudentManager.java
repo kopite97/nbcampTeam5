@@ -1,15 +1,10 @@
 package camp.Controller;
 
-import camp.Model.State;
+import camp.Model.*;
 import camp.View.DisplayManager;
-import camp.Model.Student;
-import camp.Model.Subject;
-import camp.Model.SubjectType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class StudentManager {
     private static StudentManager instance;
@@ -219,11 +214,83 @@ public class StudentManager {
 
     // 과목별 평균 등급 조회
     public void inquireAvgScoreBySubject(){
+        System.out.println("과목을 선택해주세요");
+        printAllSubjects();
+        SubjectType subjectType = selectSubject();
+        if(subjectType == null){
+            System.out.println("선택한 과목이 없습니다. 정확하게 입력해주세요");
+            return;
+        }
 
+        double avg = 0;
+        int count =0;
+        for(var student : studentStore){
+            if(student.getSelectSubjects().contains(subjectType.getSubjectName())){
+                List<Score> scoreList = student.getScoreList(subjectType.getSubjectName());
+                avg += scoreList.stream().mapToDouble(Score::getScore).sum();
+                count += scoreList.size();
+            }
+        }
+        if(count ==0){
+            System.out.println("해당 과목을 선택한 학생이 없습니다.");
+            return;
+        }
+        avg /= count;
+        System.out.println(subjectType.getSubjectName()+"의 평균 점수 : "+avg);
+        System.out.println(subjectType.getSubjectName()+"의 평균 등급 : "+Score.calculateScoreRank((int)avg,subjectType));
     }
 
     // 상태별 수강생들의 과목 평균등급 조회
     public void inquireAvgScoreRankBySubjectType(){
+        System.out.println("조회할 상태를 선택하세요");
+        System.out.println("Green\nRed\nYellow");
+
+        String selectState = DisplayManager.getInstance().inputScanner(String.class);
+        if(!Arrays.stream(State.values()).map(Enum::name).toList().contains(selectState)){
+            System.out.println("잘못된 입력입니다. 정확한 상태를 입력해주세요");
+            return;
+        }
+        State selectedState = State.valueOf(selectState);
+        System.out.println("상태 : "+selectedState);
+
+        System.out.println("열람할 과목의 타입을 선택해 주세요");
+        for(var type : SubjectType.subjectTypeArr){
+            System.out.println(type);
+        }
+
+        // 원하는 과목 타입 입력
+        String selectChoice = DisplayManager.getInstance().inputScanner(String.class).toUpperCase();
+
+        // SubjectType 클래스 안에 static으로 선언한 subjectTypeArr을 돌며 같은 값이 있나 확인
+        // 없으면 return
+        if (!Arrays.stream(SubjectType.subjectTypeArr).toList().contains(selectChoice)) {
+            System.out.println("잘못된 입력입니다. 정확한 상태를 입력해주세요.");
+            return;
+        }
+
+        // 선택한 타입인 과목 리스트 생성
+        List<String> wantTypeSubjects = subjectStore.stream().filter(x -> x.getSubjectType().
+                getSubjectType().
+                equals(selectChoice)).
+                map(x -> x.getSubjectType().getSubjectName()).toList();
+
+
+        // 논리적으로 무조건 있기 때문에 null체크 없이 바로 get()
+        Subject basicType = subjectStore.stream().filter(x-> Objects.equals(x.getSubjectType().getSubjectName(), wantTypeSubjects.get(0))).findFirst().get();
+
+        for(var student : studentStore){
+            double avg =0;
+            int count =0;
+
+            for (var subject : student.getSelectSubjects()) {
+                if (wantTypeSubjects.contains(subject)) {
+                    avg += student.getScoreList(subject).stream().mapToDouble(Score::getScore).sum();
+                    count += student.getScoreList(subject).size();
+                }
+            }
+            avg /= count;
+            System.out.println(student.getName() + "의 " + selectChoice + "과목 평균 점수 : " + avg + " 평균 등급 : " + Score.calculateScoreRank((int) avg, basicType.getSubjectType()));
+        }
 
     }
 

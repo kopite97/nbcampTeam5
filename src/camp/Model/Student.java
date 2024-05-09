@@ -22,10 +22,6 @@ public class Student {
     public String getAccount() {
         return account;
     }
-    public void setAccount(String wantAccount) {
-        this.account = wantAccount;
-
-    }
 
     public String getName(){
         return name;
@@ -111,6 +107,11 @@ public class Student {
         if(!isExistSubject(subjectInput))
             return false;
         return true;
+    }
+
+    // 점수 조회
+    public List<Score> getScoreList(String wantSubject) {
+        return scores.get(wantSubject);
     }
 
     // 점수 등록
