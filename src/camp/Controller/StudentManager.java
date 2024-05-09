@@ -1,11 +1,12 @@
 package camp.Controller;
 
 import camp.View.DisplayManager;
-import camp.model.Student;
-import camp.model.Subject;
-import camp.model.SubjectType;
+import camp.Model.Student;
+import camp.Model.Subject;
+import camp.Model.SubjectType;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 public class StudentManager {
@@ -58,8 +59,9 @@ public class StudentManager {
         String account = InitializeManager.getInstance().sequence(InitializeManager.getInstance().INDEX_TYPE_STUDENT);
         Student student = new Student(account, name);
 
-        student.addSubject(SubjectType.JAVA);
-        student.addSubject(SubjectType.JPA);
+        printAllSubjects(true);
+        addSubjectWhenCreateNewStudent(student);
+
         studentStore.add(student);
         System.out.println("\n추가 완료 : " + name);
     }
@@ -95,6 +97,7 @@ public class StudentManager {
         selectedStudent.ifPresent(Student::inquireRoundGradeBySubject);
     }
 
+
     private void printAllStudnts() {
         if (studentStore == null|| studentStore.isEmpty()) {
             System.out.println("등록된 수강생이 없습니다. 수강생을 등록해주세요.");
@@ -103,6 +106,73 @@ public class StudentManager {
             for (var student : studentStore) {
                 System.out.println(student.getName() + " : " + student.getAccount());
             }
+
+    private SubjectType selectSubject() {
+        System.out.println("\n원하는 과목을 입력하세요");
+        printAllSubjects();
+
+        String selectSubject = DisplayManager.getInstance().inputScanner(String.class);
+        for(var index : subjectStore) {
+            if(index.getSubjectType().getSubjectName().equals(selectSubject)) {
+                return index.getSubjectType();
+            }
+        }
+        return null;
+    }
+
+    private void addSubjectWhenCreateNewStudent(Student student) {
+        int i =0;
+        while(i<3){
+            SubjectType newSubject = selectSubject();
+            if(newSubject == null){
+                System.out.println("해당 과목이 없습니다.\n\n");
+                continue;
+            }
+            if(student.getSelectSubjects().contains(newSubject.getSubjectName())){
+                System.out.println("이미 해당 과목을 선택하셨습니다.\n\n");
+                continue;
+            }
+
+            System.out.println("\n\n"+newSubject.getSubjectName()+"을(를) 선택하셨습니다.\n\n");
+            student.addSubject(newSubject);
+
+            if(newSubject.getSubjectType().equals("CHOICE")){
+                System.out.println("\n해당 과목은 선택과목이므로, 필수 과목도 입력해 주세요.");
+                continue;
+            }
+            i++;
+        }
+    }
+
+    private void printAllSubjects() {
+        System.out.println("\n======과목 리스트======\n\n");
+
+        for(var index : subjectStore) {
+            System.out.println(index.getSubjectType().getSubjectName());
+        }
+    }
+
+    private void printAllSubjects(boolean isMandatory){
+        System.out.println("\n======과목 리스트======\n\n");
+        String type ="";
+        if(isMandatory)
+            type="MANDATORY";
+        else
+            type="CHOICE";
+
+        for(var index : subjectStore) {
+            if(Objects.equals(index.getSubjectType().getSubjectType(), type)){
+                System.out.println(index.getSubjectType().getSubjectName());
+            }
+        }
+    }
+
+    private void printAllStudnts()
+    {
+        System.out.println("\n=======학생의 리스트=========\n\n");
+
+        for (var student : studentStore) {
+            System.out.println(student.getName()+" : "+student.getAccount());
         }
     }
 }
