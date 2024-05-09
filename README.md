@@ -59,6 +59,10 @@
 <br>
 
 ## 👩‍💻👨‍💻 팀원 구성
+| 노석준 | 윤다빈 | 이세원 | 한해정 | 최영주 |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="https://ca.slack-edge.com/T06B9PCLY1E-U06ME1DLG8G-2b4034c1de43-512" height="150"/> | <img src="https://ca.slack-edge.com/T06B9PCLY1E-U06AU1D51EY-471f7c218a7a-512" height="150"/> | <img src="https://ca.slack-edge.com/T06B9PCLY1E-U06RHFEUZN3-59f988f87922-512" height="150"/> | <img src="https://ca.slack-edge.com/T06B9PCLY1E-U06KBF4M4AF-06e417b77203-512" height="150"/> |<img src="https://ca.slack-edge.com/T06B9PCLY1E-U06KADG3X1P-122afee5e3ca-512" height="150"/>  |
+| [@kopite97](https://github.com/kopite97) | [@yoodab](https://github.com/yoodab) | [@leesw1945](https://github.com/leesw1945) | [@HaejungHan](https://github.com/HaejungHan) | [@ysy56](https://github.com/ysy56) |
 <br>
 
 ## 🤝 역할 분담
