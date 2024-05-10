@@ -131,6 +131,11 @@ public class Student {
         // 회차 계산
         int nextRound = scores.get(subjectInput).size()+1;
 
+        if(nextRound>10){
+            System.out.println("10회차를 모두 등록하셨습니다.");
+            return false;
+        }
+
         // 점수 입력 받기
         System.out.println(nextRound+"회차 점수를 입력해주세요: ");
 
